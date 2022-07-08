@@ -5,7 +5,6 @@ function Navbar(){
     return(
         <>
             <ul>
-                <li><Link to='/'>Home</Link></li>
                 <li>
                     Generate
                         <ul>
