@@ -25,6 +25,7 @@ body{
     grid-template-columns: 4fr 2fr;
     grid-template-rows: 1fr;
     grid-template-areas: 'sgrid control';
+    column-gap: 100px;
 }
 
 .pause , .gearIcon{
@@ -632,4 +633,136 @@ label{
     top: 0;
     right: 30px;
     background-color: blue;
+}
+
+
+/* media Queries  */
+@media (max-width:1100px) {
+    .game{
+        column-gap: 50px;
+    }
+}
+@media (max-width:950px) {
+    .game{
+        width: 80%;
+    }
+}
+@media (max-width:850px) {
+    .game{
+        width: 90%;
+    }
+    .header-box{
+        width: 90%;
+        top: 5vh;
+        left: 5vw;
+        padding: 0 30px;
+    }
+}
+@media (max-width:750px) {
+    .game{
+        width: 90%;
+        column-gap: 5px;
+    }
+    .header-box{
+        width: 90%;
+        top: 5vh;
+        left: 5vw;
+        padding: 0 30px;
+    }
+}
+@media (max-width:650px) {
+    .game{
+        margin-top: 20%;
+        grid-template-columns: 4fr 2fr;
+        grid-template-rows: 1fr;
+    }
+    .grid{
+        width: 360px;
+    }
+    .controlers-container{
+        flex-wrap: wrap;
+    }
+    .square{
+        min-height: 40px;
+    }  
+}
+@media (max-width:600px) {
+    .game{
+        margin-top: 100px;
+        grid-template-columns:100%;
+        grid-template-rows: 365px 1fr;
+        grid-template-areas: 'sgrid' 'control';
+        row-gap: 30px;
+        margin-bottom: 50px;
+    }
+    .grid{
+        width: 360px;
+        margin: 0 auto;
+    }
+    .controlers-container{
+        flex-wrap: wrap;
+        height: 100%;
+        padding: 10px 2px;
+    }
+    .square{
+        min-height: 40px;
+    }  
+    .num-btns{
+        margin: 12px 0;
+    }
+
+    .timer{
+        font-size: 15px;
+        padding: 5px;
+        margin: 12px 0;
+    }
+    .mistakes{
+        margin-top: 12px;
+        height: 20px;
+    }
+}
+@media (max-width:380px) {
+    .game{
+        margin-top: 100px;
+        grid-template-columns:100%;
+        grid-template-rows: 325px 1fr;
+        grid-template-areas: 'sgrid' 'control';
+        row-gap: 30px;
+        margin-bottom: 20px;
+        height: 100%;
+    }
+    .grid{
+        width: 320px;
+        margin: 0 auto;
+    }
+    
+    .square{
+        min-height: 35px;
+    }  
+    .controlers-container{
+        padding: 10px 2px;
+    }
+
+    .num-btns{
+        display: grid;
+        grid-template-columns: repeat(9,1fr);
+        grid-template-rows: 1fr;
+        grid-template-areas: '1 2 3 4 5 6 7 8 9 ' ;
+        margin: 7px auto;
+    }
+
+    .timer{
+        font-size: 15px;
+        padding: 5px;
+        margin: 7px 0;
+    }
+    .num-btn{
+        width: 35px;
+        height: 35px;
+        margin: 1px;
+    }
+    .mistakes{
+        margin-top: 7px;
+        height: 20px;
+    }
 }

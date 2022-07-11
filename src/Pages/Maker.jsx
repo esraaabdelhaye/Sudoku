@@ -7,7 +7,7 @@ import './Maker.css'
 
 export function Maker(){
     // Variables
-    let hintsCount = 3,prevInputId,newGameBool = false ,isCompletedBool = true , mistakes = 0 , totalTime , resetTimerBool = false;
+    let hintsCount = 300,prevInputId,newGameBool = false ,isCompletedBool = true , mistakes = 0 , totalTime , resetTimerBool = false;
     const [level , setLevel] = useState('easy');
     let showTimer = true , showHighlights = true , showMistakes = true , showIndicators = true;
     const [newGameClicked , setNewGameClicked] = useState(false)
@@ -22,6 +22,8 @@ export function Maker(){
         window.addEventListener('click', function(e){         // Removing The Focus Effect When You Click Outside The Grid
             if (!document.querySelector('.grid').contains(e.target) && prevInputId && !document.querySelector('.controlers-container').contains(e.target)){
                 document.getElementById(`${prevInputId}`).classList.remove('focus')
+                highLight('')
+                prevInputId = null
             }
           });
 
@@ -39,15 +41,19 @@ export function Maker(){
         }
         document.getElementById(`${e.target.id}`).classList.add('focus')
         prevInputId = e.target.id;
-        highLight(document.getElementById(`${prevInputId}`))
+        highLight(document.getElementById(`${prevInputId}`).textContent)
     }
 
     // Gettting The Typing Number And Displaying It On The Screen
     function NumberClicked(e){
-        const input = document.getElementById(`${prevInputId}`)
-        if(!input.classList.contains('done')){
-            input.textContent = e.target.id;
-            rightOrWrong(input)
+        if(prevInputId){
+            const input = document.getElementById(`${prevInputId}`)
+            if(!input.classList.contains('done')){
+                input.textContent = e.target.id;
+                rightOrWrong(input)
+            }
+        }else{
+            highLight(e.target.id)
         }
     }
     
@@ -62,7 +68,7 @@ export function Maker(){
             input.classList.remove('right')
             input.classList.remove('blueBG')
             input.textContent = ''
-            highLight(input)
+            highLight(input.textContent)
             modifyNumArray()
 
             const spansContainer = document.getElementById(`spans${prevInputId}`)
@@ -76,13 +82,30 @@ export function Maker(){
     // Getting The Number From The Keyboard And Displaying It 
     function keyPressed(e){
         const number = e.key
-        const input = document.getElementById(`${prevInputId}`)
-        const numberLeft = parseInt(document.getElementById(`${e.key}`).children[0].textContent)
-        if(prevInputId && e.keyCode <= 57 && e.keyCode>=49 && !input.classList.contains('done') && numberLeft!== 0){
-            input.textContent = number;
-            rightOrWrong(input)
-        }else if(prevInputId && e.keyCode == '8'){
-            deleteNumber()
+        if(prevInputId){
+            const input = document.getElementById(`${prevInputId}`)
+            const pencil = document.querySelector('.edit')
+            
+            if(pencil.classList.contains('hold') || pencil.children[0].classList.contains('hold')){
+                if(!input.classList.contains('wrong')&& !input.classList.contains('right')&&!input.classList.contains('done')){
+                    const span = input.parentElement.children[1].children[number-1]
+                    span.classList.toggle('disappear')
+                }
+            }else{
+               
+                if(prevInputId && e.keyCode <= 57 && e.keyCode>=49 && !input.classList.contains('done') && input.textContent!==number){
+                    const numberLeft = parseInt(document.getElementById(`${e.key}`).children[0].textContent)
+                    if(numberLeft!== 0 )
+                    {
+                        input.textContent = number;
+                        rightOrWrong(input)
+                    }
+                }else if(prevInputId && e.keyCode == '8'){
+                    deleteNumber()
+                }
+            }
+        }else{
+            highLight(e.key)
         }
     }
 
@@ -140,19 +163,22 @@ export function Maker(){
     function rightOrWrong(input){
         if(input.textContent == solution[input.id[0]][input.id[1]]){
             input.classList.remove('wrong')
-            isCompleted()
+            
             if(showMistakes)
                 input.classList.add('right')
 
         }else{
-            mistakes++;
+            mistakes++
             document.querySelector('.mistakes-span').textContent = mistakes;
             input.classList.remove('right')
             if(showMistakes)
                 input.classList.add('wrong')
+            
+            
         }
+        isCompleted()
         modifyNumArray()
-        highLight(input)
+        highLight(input.textContent)
         document.getElementById(`spans${prevInputId}`).classList.add('disappear')
     }
 
@@ -190,7 +216,9 @@ export function Maker(){
         const I = document.querySelector('.pauseI')
         const state = I.classList;
         let theClass = state[2]==='fa-play'? 'fa-pause':'fa-play';
+        let title = state[2]==='fa-play'? 'Pause':'Resume';
         I.classList = `pauseI fa ${theClass}`;
+        I.parentElement.title = title;
         document.querySelector('.pause-layout').classList.toggle('show')
 
     }
@@ -285,7 +313,7 @@ export function Maker(){
                 spans.forEach(span=>{
                     span.textContent = 9-numArray[i]
                     i++
-                    if(prevInputId &&  span.textContent == '0'){
+                    if(span.textContent == '0'){
                         span.parentElement.disabled = true;
                         span.parentElement.classList.add('disabled') 
                         span.classList.add('disappear')
@@ -310,18 +338,17 @@ export function Maker(){
         }
     }
 
-    function highLight(input){
+    function highLight(number){
         if(showHighlights){
             const filledinputs = document.querySelectorAll('.done ,.right')
             const unFilled = document.querySelectorAll('.blueBG');
-            const number = input.textContent;
             const spans = document.querySelectorAll(`#num${number}`)
             const unUsedSpans = document.querySelectorAll('.blue')
             if(unFilled){
                 unFilled.forEach(item=> item.classList.remove('blueBG'))
             }
             filledinputs.forEach(filledInput=>{
-                if(filledInput.textContent === input.textContent){
+                if(filledInput.textContent == number){
                     filledInput.classList.add('blueBG')
                 }
             })
@@ -360,6 +387,7 @@ export function Maker(){
         showMistakes = document.getElementById('mistakes-btn').classList.contains('on')
         showIndicators = document.getElementById('indicator-btn').classList.contains('on')
         showTimer = document.getElementById('timer-btn').classList.contains('on')
+
         if(!showHighlights){
             const highLightedComments = document.querySelectorAll('.blue');
             highLightedComments.forEach(highlighedItem => highlighedItem.classList.remove('blue'))
@@ -369,8 +397,13 @@ export function Maker(){
         if(!showMistakes){
             const rights = document.querySelectorAll('.right');
             const wrongs = document.querySelectorAll('.wrong');
-            rights.forEach(right=> right.classList.remove('right'))
-            wrongs.forEach(wrong=> wrong.classList.remove('wrong'))
+            rights.forEach(right=> right.classList.replace('right' , 'wasRight'))
+            wrongs.forEach(wrong=> wrong.classList.replace('wrong' ,'wasWrong'))
+        }else{
+            const rights = document.querySelectorAll('.wasRight');
+            const wrongs = document.querySelectorAll('.wasWrong');
+            rights.forEach(right=> right.classList.replace('wasRight' , 'right'))
+            wrongs.forEach(wrong=> wrong.classList.replace('wasWrong' , 'wrong'))
         }
         if(!showIndicators){
             const indicators = document.querySelectorAll('.absolute-span')
@@ -454,3 +487,6 @@ export default Maker;
 // Make The Design Responsive
 // reset the timer
 // play some levels
+// cursor
+// highlighting the comments 
+// you can't put a comment if the number is finished
