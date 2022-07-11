@@ -7,7 +7,7 @@ import './Maker.css'
 
 export function Maker(){
     // Variables
-    let hintsCount = 300,prevInputId,newGameBool = false ,isCompletedBool = true , mistakes = 0 , totalTime , resetTimerBool = false;
+    let hintsCount = 3,prevInputId,newGameBool = false ,isCompletedBool = true , mistakes = 0 , totalTime , resetTimerBool = false;
     const [level , setLevel] = useState('easy');
     let showTimer = true , showHighlights = true , showMistakes = true , showIndicators = true;
     const [newGameClicked , setNewGameClicked] = useState(false)
@@ -490,3 +490,4 @@ export default Maker;
 // cursor
 // highlighting the comments 
 // you can't put a comment if the number is finished
+// when you click on the number indicator it counts as a mistake
