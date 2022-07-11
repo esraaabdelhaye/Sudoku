@@ -1,7 +1,7 @@
 {
   "name": "sudoku_game",
   "version": "0.1.0",
-  "homepage": "http://esraaabdelhaye.github.io/Sudoku",
+  "homepage": "https://esraaabdelhaye.github.io/Sudoku",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
