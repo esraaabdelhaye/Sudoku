@@ -51,7 +51,7 @@ function Controlers(props){
                     </select>
                 </div>
             </div>
-            <Timer timer={props.Timer}/>
+            <Timer level={props.level} timer={props.Timer}/>
             <div className='modify'>
                 <button title="Delete" onClick={props.delete} className='delete'><i className="fa-solid fa-eraser"></i></button>
                 <button title="Hint" onClick={props.hintFunction} className="hint"><i className="fas fa-lightbulb"></i><span className='hints-span'>3</span></button>

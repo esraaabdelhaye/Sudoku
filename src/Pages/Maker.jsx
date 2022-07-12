@@ -7,13 +7,12 @@ import './Maker.css'
 
 export function Maker(){
     // Variables
-    let hintsCount = 3,prevInputId,newGameBool = false ,isCompletedBool = true , mistakes = 0 , totalTime , resetTimerBool = false;
+    let hintsCount = 3,prevInputId,newGameBool = false ,isCompletedBool = true , mistakes = 0 , totalTime ;
     const [level , setLevel] = useState('easy');
     let showTimer = true , showHighlights = true , showMistakes = true , showIndicators = true;
     const [newGameClicked , setNewGameClicked] = useState(false)
     // Fetching The Sudoku 
     React.useEffect(()=>{
-        console.log(level);
         fetch(`https://sugoku.herokuapp.com/board?difficulty=${level}`)
         .then(response=> response.json())
         .then(data => displaySudoku(data))
@@ -48,8 +47,10 @@ export function Maker(){
     function NumberClicked(e){
         if(prevInputId){
             const input = document.getElementById(`${prevInputId}`)
-            if(!input.classList.contains('done')){
-                input.textContent = e.target.id;
+            const Number = e.target.classList.contains('absolute-span')? e.target.parentElement.id : e.target.id
+            
+            if(!input.classList.contains('done') && input.textContent!==Number){
+                input.textContent = Number;
                 rightOrWrong(input)
             }
         }else{
@@ -225,7 +226,7 @@ export function Maker(){
     
     // When You Click On The Okay Btn
     function changeLevel(){
-        resetTimerBool = true;
+        document.querySelector('.okayBtn').classList.add('clicked')
         document.querySelector('.leave-layout').style.display="none"
         resetHintsAndMistakes()
         const newLevel = document.getElementById('selectLevel').value;
@@ -237,7 +238,6 @@ export function Maker(){
             newGameBool=false;
             setNewGameClicked(!newGameClicked)
         }
-
     }
     // When You Click On Cancel Btn
     function cancelLeaving(){
@@ -277,6 +277,8 @@ export function Maker(){
     }
     // when the grid is completed and you Clicked on play again
     function youWon(){
+       
+
         totalTime = document.querySelector('.timer').textContent
         console.log(totalTime);
         document.querySelector('.winLayout').classList.remove('show')
@@ -289,14 +291,12 @@ export function Maker(){
         const pauseLayout = document.querySelector('.pause-layout').classList.contains('show')
         const leaveLayout = document.querySelector('.leave-layout').style.display;
         if(winLayout||pauseLayout||leaveLayout==='flex'){
-            
             return 'STOP'
         }else if(!showTimer){
             return 'HIDE'
         }else if(showTimer){
             return 'CONTINUE'
-        }
-        else{
+        }else{
             return 'CONTINUE'
         }
     }
@@ -469,7 +469,7 @@ export function Maker(){
             </div>
             <div className='game'>
                 <SudokuGrid onClicking={focusInput}/>
-                <Controlers commentsFunc = {comments} Timer={manageTimer} delete={deleteNumber}  level={level} onClicking={NumberClicked} hintFunction={hint}/>
+                <Controlers  level={level} commentsFunc = {comments} Timer={manageTimer} delete={deleteNumber}  onClicking={NumberClicked} hintFunction={hint}/>
             </div>
         </div>
     )
@@ -485,9 +485,4 @@ export default Maker;
 
 
 // Make The Design Responsive
-// reset the timer
-// play some levels
-// cursor
-// highlighting the comments 
 // you can't put a comment if the number is finished
-// when you click on the number indicator it counts as a mistake

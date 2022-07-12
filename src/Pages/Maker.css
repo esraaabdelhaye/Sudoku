@@ -74,6 +74,7 @@ body{
 .delete ,.hint , .edit{
     font-size: 25px;
     width: 30%;
+    cursor: pointer;
 }
 
 .num-btns{
@@ -124,6 +125,7 @@ body{
     color: #348be9;
     font-weight: bold;
     position: relative;
+    cursor: pointer;
 }
 
 .hint{
@@ -220,6 +222,7 @@ select{
     -moz-border-radius: 5px;
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
+    cursor: pointer;
 }
 
 .selectCont:after{
@@ -671,57 +674,21 @@ label{
     }
 }
 @media (max-width:650px) {
-    .game{
-        margin-top: 20%;
-        grid-template-columns: 4fr 2fr;
-        grid-template-rows: 1fr;
-    }
+
     .grid{
-        width: 360px;
+
+        width: 405px;
     }
-    .controlers-container{
-        flex-wrap: wrap;
-    }
-    .square{
-        min-height: 40px;
-    }  
-}
-@media (max-width:600px) {
-    .game{
-        margin-top: 100px;
-        grid-template-columns:100%;
-        grid-template-rows: 365px 1fr;
-        grid-template-areas: 'sgrid' 'control';
-        row-gap: 30px;
-        margin-bottom: 50px;
-    }
-    .grid{
-        width: 360px;
-        margin: 0 auto;
-    }
-    .controlers-container{
-        flex-wrap: wrap;
-        height: 100%;
-        padding: 10px 2px;
-    }
-    .square{
-        min-height: 40px;
-    }  
-    .num-btns{
-        margin: 12px 0;
+    .pause-layout h1{
+        font-size: 50px;
     }
 
-    .timer{
-        font-size: 15px;
-        padding: 5px;
-        margin: 12px 0;
-    }
-    .mistakes{
-        margin-top: 12px;
-        height: 20px;
-    }
+    .square{
+        min-height: 45px;
+    }  
 }
-@media (max-width:380px) {
+
+@media (max-width:600px) {
     .game{
         margin-top: 100px;
         grid-template-columns:100%;
@@ -735,7 +702,9 @@ label{
         width: 320px;
         margin: 0 auto;
     }
-    
+    .pause-layout h1{
+        font-size: 50px;
+    }
     .square{
         min-height: 35px;
     }  
@@ -763,6 +732,49 @@ label{
     }
     .mistakes{
         margin-top: 7px;
+        height: 20px;
+    }
+}
+
+@media (max-width:600px )and (min-width:380px) {
+    .game{
+        margin-top: 100px;
+        grid-template-columns:100%;
+        grid-template-rows: 365px 1fr;
+        grid-template-areas: 'sgrid' 'control';
+        row-gap: 30px;
+        margin-bottom: 20px;
+        height: 100%;
+    }
+    .grid{
+        width: 365px;
+        margin: 0 auto;
+    }
+
+    .controlers-container{
+        flex-wrap: wrap;
+        height: 100%;
+        padding: 10px 10px;
+    }
+    .square{
+        min-height: 40px;
+    }  
+    .num-btns{
+        margin: 12px 0;
+        column-gap: 8px;
+    }
+    .num-btn{
+        margin: 0;
+        width: 100%;
+    }
+
+    .timer{
+        font-size: 15px;
+        padding: 5px;
+        margin: 12px 0;
+    }
+    .mistakes{
+        margin-top: 12px;
         height: 20px;
     }
 }
