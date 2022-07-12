@@ -9,7 +9,6 @@ body{
     height: 100vh;
     overflow: hidden;
     background-color: #f0f0f0;
-    background-color: red;
 }
 
 .container{
@@ -579,7 +578,7 @@ label{
 /* Classes  */
 
 .focus{
-    background-color: rgba(4, 122, 122, 0.384);;
+    background-color: #348ce9c4;
 }
 
 .wrong{
@@ -611,7 +610,7 @@ label{
 }
 
 .blueBG{
-    background-color: rgba(4, 122, 122, 0.384);
+    background-color: #348ce9c4;
 }
 
 .blue{
@@ -641,7 +640,7 @@ label{
 
 
 /* media Queries  */
- @media (max-width:992px) {
+@media (max-width:992px) {
     .game{
         column-gap: 50px;
     }
@@ -667,7 +666,7 @@ label{
     .game{
         width: 95%;
         margin-top: 70px;
-        grid-template-columns:100% 576px;
+        grid-template-columns:365px 576px;
         grid-template-rows: 365px calc(95vh - 510px);
         grid-template-areas: 'sgrid' 'control';
         row-gap: 15px;
@@ -679,6 +678,7 @@ label{
         padding: 0px 30px;
     }
     .grid{
+        max-width: 365px;
         width:100%;
         margin: 0 auto;
     }
