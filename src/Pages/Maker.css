@@ -9,6 +9,7 @@ body{
     height: 100vh;
     overflow: hidden;
     background-color: #f0f0f0;
+    background-color: red;
 }
 
 .container{
