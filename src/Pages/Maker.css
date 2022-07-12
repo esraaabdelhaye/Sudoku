@@ -22,10 +22,10 @@ body{
     display: grid;
     margin:13% auto 2% auto;
     height: 85%;
-    grid-template-columns: 4fr 2fr;
+    grid-template-columns: 4fr 3fr;
     grid-template-rows: 1fr;
     grid-template-areas: 'sgrid control';
-    column-gap: 100px;
+    column-gap: 50px;
 }
 
 .pause , .gearIcon{
@@ -89,7 +89,7 @@ body{
 
 .grid{
     background-color: #fff;
-    max-width: 450px;
+    max-width: 455px;
     grid-area: sgrid;
     font-size: 20px;
     display: grid;
@@ -102,13 +102,13 @@ body{
 }
 
 .square{
-    min-height: 50px;
+    min-height: 45px;
+    min-width: 45px;
     height: 100%;
     border: 1px solid rgba(59, 59, 59, 0.61);
     outline: none;
     position: relative;
     cursor:pointer;
-
 }
 
 .num-btn{
@@ -722,9 +722,12 @@ label{
         margin:0 0 12px 0;
         order: 3;
     }
-
+    .square{
+        min-width: 100%;
+        min-height: 100%;
+    }
 }
-@media screen and (min-width:576px) and (max-height:667px){
+@media screen and (min-width:576px) and (max-height:667px) and (max-width:768px){
     .num-btns{
         display: flex;
         align-items: center;
