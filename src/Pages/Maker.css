@@ -667,7 +667,7 @@ label{
         width: 95%;
         margin-top: 70px;
         grid-template-columns:100% 576px;
-        grid-template-rows: 365px calc(95vh - 410px);
+        grid-template-rows: 365px calc(95vh - 510px);
         grid-template-areas: 'sgrid' 'control';
         row-gap: 15px;
         margin-bottom: 20px;
@@ -771,7 +771,7 @@ label{
         width: 95%;
         margin-top: 95px;
         grid-template-columns:100%;
-        grid-template-rows: 365px calc(95vh - 450px);
+        grid-template-rows: 365px calc(95vh - 550px);
         grid-template-areas: 'sgrid' 'control';
         row-gap: 30px;
         margin-bottom: 20px;
