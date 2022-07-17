@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react'
 import SudokuGrid from '../components/SudokuGrid';
 import Controlers from '../components/Controlers';
@@ -30,7 +29,7 @@ export function Maker(){
             window.removeEventListener('keydown' , keyPressed)
         };
 
-    })
+    } , [level , newGameClicked])
 
 
     // Adding Focus Class On The Selected Input 
@@ -119,6 +118,8 @@ export function Maker(){
                 const input = document.getElementById(`${i}${n}`);
                 const spansContainer = input.parentElement.children[1]
                 input.classList.remove('blueBG')
+                input.classList.remove('right')
+                input.classList.remove('wrong')
                 for(let s=0; s<9; s++){
                     spansContainer.children[s].classList.add('disappear')
                     spansContainer.children[s].classList.remove('blue')
@@ -179,7 +180,6 @@ export function Maker(){
         }
         isCompleted()
         modifyNumArray()
-        highLight(input.textContent)
         document.getElementById(`spans${prevInputId}`).classList.add('disappear')
     }
 
@@ -258,7 +258,6 @@ export function Maker(){
     // on clicking on new game in the upper right corner
     function newGame(){
         document.querySelector('.leave-layout').style.display="flex"
-        
         newGameBool=true;
     }
 
@@ -340,24 +339,16 @@ export function Maker(){
 
     function highLight(number){
         if(showHighlights){
-            const filledinputs = document.querySelectorAll('.done ,.right')
+            const filledinputs = document.querySelectorAll('.done ,.right , .wrong')
             const unFilled = document.querySelectorAll('.blueBG');
-            const spans = document.querySelectorAll(`#num${number}`)
-            const unUsedSpans = document.querySelectorAll('.blue')
             if(unFilled){
                 unFilled.forEach(item=> item.classList.remove('blueBG'))
             }
             filledinputs.forEach(filledInput=>{
-                if(filledInput.textContent == number){
+                if(filledInput.textContent === number){
                     filledInput.classList.add('blueBG')
                 }
             })
-            spans.forEach(span=>{
-                if(!span.classList.contains('disappear')){
-                    span.classList.add('blue')
-                }
-            })
-            unUsedSpans.forEach(unUsedSpan=> unUsedSpan.classList.remove('blue'))
         }
     }
 
@@ -483,6 +474,3 @@ export default Maker;
 
 
 
-
-// Make The Design Responsive
-// you can't put a comment if the number is finished
