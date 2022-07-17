@@ -474,6 +474,3 @@ export default Maker;
 
 
 
-
-// Make The Design Responsive
-// you can't put a comment if the number is finished
