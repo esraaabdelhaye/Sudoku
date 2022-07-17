@@ -78,6 +78,3 @@ function Controlers(props){
 export default Controlers;
 
 
-// Tommorow
-// make the timer in a separate component which returns p.timer only 
-// work on the pencil 
