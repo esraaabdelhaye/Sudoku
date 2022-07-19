@@ -60,12 +60,14 @@ export function Maker(){
 
     // Delete Value 
     function deleteNumber(){
+        const wrong = showMistakes? 'wrong': 'wasWrong';
+        const right = showMistakes? 'right': 'wasRight';
         const input = document.getElementById(`${prevInputId}`)
         if(!input.classList.contains('done')){
 
 
-            input.classList.remove('wrong')
-            input.classList.remove('right')
+            input.classList.remove(wrong)
+            input.classList.remove(right)
             input.classList.remove('blueBG')
             input.textContent = ''
             highLight(input.textContent)
@@ -163,21 +165,21 @@ export function Maker(){
 
     // Checking The Answer Is right Or Wrong 
     function rightOrWrong(input){
+        const wrong = showMistakes? 'wrong': 'wasWrong';
+        const right = showMistakes? 'right': 'wasRight';
         if(input.textContent == solution[input.id[0]][input.id[1]]){
             input.classList.remove('wrong')
-            
-            if(showMistakes)
-                input.classList.add('right')
+            input.classList.remove('wasWrong')
+            input.classList.add(right)
 
         }else{
             mistakes++
             document.querySelector('.mistakes-span').textContent = mistakes;
             input.classList.remove('right')
-            if(showMistakes)
-                input.classList.add('wrong')
-            
-            
+            input.classList.remove('wasRight')
+            input.classList.add(wrong)
         }
+        removeComments(input.id , input.textContent)
         isCompleted()
         modifyNumArray()
         document.getElementById(`spans${prevInputId}`).classList.add('disappear')
@@ -199,6 +201,7 @@ export function Maker(){
                 document.getElementById(`spans${prevInputId}`).classList.add('disappear')
                 isCompleted()
                 modifyNumArray()
+                removeComments(input.id , input.textContent)
                 hintsCount--;
             }
         }
@@ -303,6 +306,7 @@ export function Maker(){
         let numArray = [0,0,0,0,0,0,0,0,0]
         const inputs = document.querySelectorAll('.square')
         const spans = document.querySelectorAll('.absolute-span')
+        const writingComments = document.querySelector('.edit').classList.contains('hold')
         inputs.forEach(input=>{
             let num , i=0
             if(input.children[0].textContent){
@@ -312,11 +316,15 @@ export function Maker(){
                 spans.forEach(span=>{
                     span.textContent = 9-numArray[i]
                     i++
-                    if(span.textContent == '0'){
+                    if(span.textContent == '0' && !writingComments){
                         span.parentElement.disabled = true;
                         span.parentElement.classList.add('disabled') 
                         span.classList.add('disappear')
-                    }else{
+                        
+                    }else if(writingComments){
+                        span.classList.add('disappear')
+                    }
+                    else{
                         span.parentElement.disabled = false;
                         span.parentElement.classList.remove('disabled') 
                         span.classList.remove('disappear')
@@ -407,6 +415,18 @@ export function Maker(){
         openCloseSettings()
     }
 
+    function removeComments(inputId , inputNumber){
+        const [firstNumber , secondNumber] = [...inputId]
+        const blockNumber = parseInt(parseInt(firstNumber)/3) + '' + parseInt(parseInt(secondNumber)/3);
+        const elements = document.querySelectorAll(`[id="num${inputNumber}"]`)
+        elements.forEach(element => {
+            const id = element.parentElement.id;
+            const elementBlock = parseInt(parseInt(id[5])/3) + '' + parseInt(parseInt(id[6])/3); 
+            if(id[5]===firstNumber || id[6]===secondNumber || elementBlock===blockNumber){
+                element.classList.add('disappear')
+            }
+        });
+    }
 
     return(
         <div className='container'>

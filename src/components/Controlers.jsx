@@ -28,7 +28,17 @@ function Controlers(props){
             clicked.classList.toggle('hold');
         }else{
             clicked.parentElement.classList.toggle('hold');   
-        }
+        }  // to be able to use the btn for making comments even if the btn is disabled in the normal mode
+        const disabledBtns = document.querySelectorAll('.num-btn')
+        disabledBtns.forEach(btn => {
+            if(btn.classList.contains('disabled')){
+                btn.classList.replace('disabled' , 'wasDisabled')
+                btn.disabled = !btn.disabled;
+            }else if (btn.classList.contains('wasDisabled')){
+                btn.classList.replace('wasDisabled' , 'disabled')
+                btn.disabled = !btn.disabled;
+            }
+        })
         hideShowIndicators()
     }
     function hideShowIndicators(){
